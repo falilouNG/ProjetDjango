@@ -1,0 +1,108 @@
+{% extends 'Xpense_manager/base.html' %}
+
+{% block content %}
+
+<div class="container">
+   
+    <section class="section section-stats">
+        <div class="row">
+
+            <div class="col 14">
+
+                <div class="card-panel">
+                    <h6 class="bold">Total Budget</h6>
+                    <h1 class="bold">${{project.budget}}</h1>
+                </div>
+
+            </div>
+            <div class="col 14">
+
+                <div class="card-panel">
+                    <h6 class="bold">Budget Left</h6>
+                    <h1 class="bold">$...</h1>
+                </div>
+
+            </div>
+            <div class="col 14">
+
+                <div class="card-panel">
+                    <h6 class="bold">Budget Moves</h6>
+                    <h1 class="bold">...</h1>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section section-expenses" >
+        <div class="row">
+            <button id="mybtn" class="btn waves-effect right modal-trigger" href="#expenseModal">
+                 <i class="material-icons white-text left">add_circle</i>
+                 Add Expense</button>
+        </div>
+
+        <ul class="z-depth-1">
+           
+           {% for expense in expense_list %}
+
+           <li>
+            <div class="card-panel z-depth-0 expense" >
+                <div class="row" style="width:800px; margin:0 auto;" >
+
+                    <div class="col 16"  >
+                        <span class="title">{{expense.title}}</span>
+                    </div>
+
+                    <div class="col 13" >
+                        <span class="title" style="display:inline-block;margin-left:150px">${{expense.amount}}</span>
+                    </div>
+
+                    <div class="col 1">
+                        <span class="title bold" style="display:inline-block;margin-left:150px">{{expense.date}}</span>
+                    </div>
+                    <a href="">
+                        <i class="material-icons red-text right">close</i>
+                    </a>
+
+                </div>
+            </div>
+        </li>
+
+           {% endfor %}
+            
+            
+
+        </ul>
+    </section>
+
+</div>
+
+<div id="expenseModal" class="modal" style="display: none;position: fixed;z-index: 1;left: 0;top: 0;">
+    <div class="modal-content">
+        <h4>Add Expense</h4>
+
+        <form method="POST">
+            {% csrf_token %}
+            <label for="title">Title</label>
+            <input id="title" name="title">
+
+            <label for="amount">Amount</label>
+            <input id="amount" name="amount">
+
+            <label  for="dateInput" >Date of the Expense</label>
+        <input  type="date" name="dateInput" id="dateInput" >
+
+        <button type="submit" class="btn">Add</button>
+
+        </form>
+    </div>  
+</div>
+
+<script>
+var modal = document.getElementById("expenseModal")
+var btn = document.getElementById("mybtn")
+btn.onclick = function(){ modal.style.display = "block";}
+
+</script>
+{% endblock %}

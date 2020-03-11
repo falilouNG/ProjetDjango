@@ -1,0 +1,15 @@
+{% extends 'Xpense_manager/base.html' %}
+{%  load static %}
+
+{% block content %}
+
+<div class="container">
+    <form action="" method="POST">
+        {%  csrf_token %}
+        {{ form }}
+        
+        <button type="submit" class="btn">Start Project</button>
+    </form>
+</div>
+
+{%  endblock %}
